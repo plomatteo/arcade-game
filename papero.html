@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Assets/css/global.css">
+    <link rel="stylesheet" href="./Assets/css/papero.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-30">
+            <h1>Acchiappa il papero</h1>
+            <div id="buttonArea">
+                <button class="gameButton" onclick="startNewGame()">
+                    New game
+                </button>
+            </div>
+            <div id="textArea">
+                <p>Score:<span id="testo">0</span>&nbsp&nbsp Time: <span id="tempo">30</span></p>
+            </div>
+            <a href="./index.html"><h2 class="redText"> << Main menù</h2></a>
+        </div>
+
+        <div id="gameField" class="col-60">
+        </div>
+    </div>
+
+    <script>
+
+        //CREO IL GAMEFIELD
+        var tableSize = 4;
+        var score = 0;
+        var movementIntervalBug;
+        var myTime;
+        var timeOut = false;
+        const max = tableSize * tableSize;
+
+        //LA FUNZIONE CREA IL CAMPO DA GIOCO
+        const createGameField = (tableSize) => {
+            let grid = `<table> <tr>`;
+            const rows = tableSize * tableSize
+            for (let i = 1; i <= rows; i++) {
+                grid += `<td id="${i}" onclick="checkPoint(${i})"></td>`;
+                if (i % Math.sqrt(rows) == 0 && i != rows) {
+                    grid += `</tr><tr>`;
+                    console.log("riga")
+                }
+                else if (i == rows) {
+                    grid += `</tr></table>`
+                };
+            }
+            grid += `</table>`;
+            document.getElementById('gameField').innerHTML = grid;
+        }
+
+        createGameField(tableSize);
+
+        const createNewBug = (max) => {
+            //PRIMA DI CREARE UN NUOVO BUG PULISCE LE CASELLE DALLE CLASSI PRECEDENTEMENTE ASSENGATE
+            if (timeOut) {
+                movementIntervalBug = setInterval(() => {
+                    for (i = 1; i <= max; i++) {
+                        document.getElementById(i).classList.remove("papero", "faraona")
+                    };
+                    const ID = Math.floor(Math.random() * (max) + 1);
+                    document.getElementById(ID).classList.add("papero");
+                }, 800);
+            }
+        }
+
+        const startNewGame = () => {
+            let timer = 30;
+            timeOut = true;
+            score = 0;
+            clearInterval(myTime);
+            clearInterval(movementIntervalBug);
+            createNewBug(max);
+            timerFunc(timer);
+            document.getElementById("testo").innerText = score;
+        }
+
+        const timerFunc = (timer) => {
+            myTime = setInterval(() => {
+                if (timer > 0) {
+                    timer--;
+                }
+                else {
+                    clearInterval(myTime);
+                    clearInterval(movementIntervalBug);
+                    timeOut = false;
+                };
+                document.getElementById("tempo").innerText = timer;
+            }, 1000);
+        }
+
+        const checkPoint = (Id) => {
+
+            const check = document.getElementById(Id);
+            if (check.classList.contains("papero")) {
+                check.classList.add("faraona");
+                scoreCounter(2);
+            }
+            else if (score > 0) {
+                scoreCounter(-1);
+            };
+        }
+
+        const scoreCounter = (point) => {
+            if (timeOut) {
+                score += point;
+                document.getElementById("testo").innerText = score;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

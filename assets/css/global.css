@@ -1,0 +1,69 @@
+* {
+    box-sizing: border-box;
+    font-family: Questrial, sans-serif;
+    font-weight: 900;
+}
+
+body {
+    background-color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+h1 {
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+
+table {
+    background-color: black;
+    border-collapse: collapse;
+    box-shadow: 5px 10px rgbrgb(4, 232, 4);
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.menu {
+    width: 350px;
+}
+
+.icon-x {
+    font-size: 2.2rem;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 900;
+    color: red;
+}
+
+.tris:hover {
+    background-color: rgb(4, 232, 4);
+}
+
+.acchiappailpapero:hover {
+    background-color: rgb(4, 232, 4);
+}
+
+.redText {
+    color: rosybrown;
+    text-align: right;
+    margin-right: 30px;
+    font-size: 26px;
+}
+.redText:hover {
+    color: red;
+}
